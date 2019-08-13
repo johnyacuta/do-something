@@ -1,4 +1,7 @@
 import React from 'react';
+import { HashRouter, Switch, Route } from 'react-router-dom';
+import NavBar from './components/navbar';
+import Home from './components/home';
 import './App.css';
 
 function App() {
@@ -10,6 +13,13 @@ function App() {
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossOrigin="anonymous"
       />
+      <NavBar></NavBar>
+      <HashRouter>
+        <Switch>
+          <Route exact path="/" component={Home}></Route>
+          <Route path="/home" component={Home}></Route>
+        </Switch>
+      </HashRouter>
     </div>
   );
 }
