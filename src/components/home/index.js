@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import { Jumbotron, Form, Button } from 'react-bootstrap';
 
+// TODO: Break out components like Search, Result, etc.
+
+const Result = ({results}) => {
+  return results.map(r => <div key={r}>{r}</div>);
+}
+
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { zipcode: 0 };
+
+    this.state = {
+      zipcode: 0,
+      results: []
+    };
+
+    this.changeHandler = this.changeHandler.bind(this);
+    this.getReps = this.getReps.bind(this);
   }
 
   render() {
+    const { results } = this.state;
+
     return(
       <div className="Home">
         <Jumbotron>
@@ -32,12 +47,14 @@ class Home extends Component {
             </Form.Group>
           </Form>
         </Jumbotron>
+
+        <Result results={results}></Result>
       </div>
     );
   }
 
   changeHandler = (event) => {
-    this.setState({zipcode: event.target.value});
+    this.setState({ zipcode: event.target.value });
   }
 
   getReps = (event) => {
@@ -47,10 +64,11 @@ class Home extends Component {
     let request = url + this.state.zipcode;
 
     fetch(request, { mode: 'no-cors' })
-      .then(function(response) {
+      .then(response => {
         console.log(response);
+        this.setState({ results: [0, 1, 2, 3, 4, 5] });
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log('Request failed', error);
       });
   }
