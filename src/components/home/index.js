@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Jumbotron, Form, Button } from 'react-bootstrap';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { zipcode: 0 };
+  }
+
   render() {
     return(
       <div className="Home">
@@ -21,7 +26,7 @@ class Home extends Component {
           
           <Form onSubmit={this.getReps}>
             <Form.Group controlId="formSearch">
-              <Form.Control type="text" placeholder="Enter zip code"/>
+              <Form.Control type="text" placeholder="Enter zip code" onChange={this.changeHandler}/>
               <br></br>
               <Button type="submit">Search</Button>
             </Form.Group>
@@ -31,9 +36,17 @@ class Home extends Component {
     );
   }
 
-  getReps() {
-    let request = process.env.REACT_APP_REP_ENDPOINT
-    fetch(request, {mode: 'no-cors'})
+  changeHandler = (event) => {
+    this.setState({zipcode: event.target.value});
+  }
+
+  getReps = (event) => {
+    event.preventDefault();
+
+    let url = process.env.REACT_APP_REP_ENDPOINT;
+    let request = url + this.state.zipcode;
+    
+    fetch(request, { mode: 'no-cors' })
       .then(function(response) {
         console.log(response); 
       })
