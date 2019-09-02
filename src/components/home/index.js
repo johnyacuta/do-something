@@ -63,9 +63,13 @@ class Home extends Component {
     let url = process.env.REACT_APP_REP_ENDPOINT;
     let request = url + this.state.zipcode;
 
-    fetch(request, { mode: 'no-cors' })
+    fetch(request, { mode: 'no-cors', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } })
       .then(response => {
         console.log(response);
+        return response.json();
+      })
+      .then(results => {
+        console.log(results);
         this.setState({ results: [0, 1, 2, 3, 4, 5] });
       })
       .catch(error => {
