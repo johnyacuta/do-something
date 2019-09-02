@@ -45,13 +45,13 @@ class Home extends Component {
 
     let url = process.env.REACT_APP_REP_ENDPOINT;
     let request = url + this.state.zipcode;
-    
+
     fetch(request, { mode: 'no-cors' })
       .then(function(response) {
-        console.log(response); 
+        console.log(response);
       })
-      .catch(function(error) {  
-        console.log('Request failed', error)  
+      .catch(function(error) {
+        console.log('Request failed', error);
       });
   }
 }
