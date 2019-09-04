@@ -1,10 +1,39 @@
 import React, { Component } from 'react';
-import { Jumbotron, Form, Button } from 'react-bootstrap';
+import { Jumbotron, Form, Button, Container, Row, Table } from 'react-bootstrap';
 
 // TODO: Break out components like Search, Result, etc.
 
 const Result = ({results}) => {
-  return results.map(r => <div key={r}>{r}</div>);
+  return results.map(r => {
+    return(
+      <div className="Results">
+        <Container>
+          <Row>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Candidate Name</th>
+                  <th>NRA Contribution Recieved</th>
+                  <th>Party</th>
+                  <th>State</th>
+                  <th>ZIP Code</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr key={r.candidate_pcc_id}>
+                  <td>{r.candidate_name}</td>
+                  <td>{r.nra_contribution_received}</td>
+                  <td>{r.party}</td>
+                  <td>{r.state}</td>
+                  <td>{r.zip_code}</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Row>
+        </Container>
+      </div>
+    );
+  });
 }
 
 class Home extends Component {
@@ -41,7 +70,8 @@ class Home extends Component {
           
           <Form onSubmit={this.getReps}>
             <Form.Group controlId="formSearch">
-              <Form.Control type="text" placeholder="Enter zip code" onChange={this.changeHandler}/>
+              <Form.Control type="text" placeholder="Enter zip code"
+                onChange={this.changeHandler} />
               <br></br>
               <Button type="submit">Search</Button>
             </Form.Group>
@@ -63,17 +93,16 @@ class Home extends Component {
     let url = process.env.REACT_APP_REP_ENDPOINT;
     let request = url + this.state.zipcode;
 
-    fetch(request, { mode: 'no-cors', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } })
+    fetch(request, { headers: { 'Content-Type': 'application/json' } })
       .then(response => {
-        console.log(response);
-        return response.json();
+        return response.clone().json();
       })
       .then(results => {
-        console.log(results);
-        this.setState({ results: [0, 1, 2, 3, 4, 5] });
+        console.log(results); // Temp
+        this.setState({ results: results });
       })
       .catch(error => {
-        console.log('Request failed', error);
+        console.log(error);
       });
   }
 }
