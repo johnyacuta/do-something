@@ -6,7 +6,7 @@ import { Jumbotron, Form, Button, Container, Row, Table } from 'react-bootstrap'
 const Result = ({results}) => {
   return results.map(r => {
     return(
-      <div className="Results">
+      <div className="Results" key={r.candidate_pcc_id}>
         <Container>
           <Row>
             <Table striped bordered hover>
@@ -20,7 +20,7 @@ const Result = ({results}) => {
                 </tr>
               </thead>
               <tbody>
-                <tr key={r.candidate_pcc_id}>
+                <tr>
                   <td>{r.candidate_name}</td>
                   <td>{r.nra_contribution_received}</td>
                   <td>{r.party}</td>
