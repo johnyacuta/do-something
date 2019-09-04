@@ -17,7 +17,7 @@ const Search = (props) => {
           <br></br>
 
           <p>
-            Enter your zip code to see who your local representatives are and if
+            Enter your ZIP Code to see who your local representatives are and if
             they have received money from the NRA, and if so how much.
           </p>
 
@@ -25,10 +25,8 @@ const Search = (props) => {
           
           <Form onSubmit={getReps}>
             <Form.Group controlId="formSearch">
-              <Form.Control type="text" placeholder="Enter zip code"
+              <Form.Control type="text" placeholder="Search ZIP Code"
                 onChange={changeHandler} />
-              <br></br>
-              <Button type="submit">Search</Button>
             </Form.Group>
           </Form>
         </Jumbotron>
