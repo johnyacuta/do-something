@@ -20,7 +20,7 @@ const Result = ({results}) => {
               <tbody>
                 <tr>
                   <td>{r.candidate_name}</td>
-                  <td>{r.nra_contribution_received}</td>
+                  <td>${r.nra_contribution_received}</td>
                   <td>{r.party}</td>
                   <td>{r.state}</td>
                   <td>{r.zip_code}</td>
