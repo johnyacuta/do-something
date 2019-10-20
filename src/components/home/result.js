@@ -27,8 +27,16 @@ const Result = ({results}) => {
     }
   ];
 
+  if (results) {
+    return(
+      <ReactTable data={results} columns={columns} />
+    );
+  }
+
   return(
-    <ReactTable data={results} columns={columns} />
+    <div>
+      <h2>No results...</h2>
+    </div>
   );
 }
 
