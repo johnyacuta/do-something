@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { trackPromise } from 'react-promise-tracker';
 import Search from './search';
 import Result from './result';
+import Spinner from '../spinner';
 
 class Home extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class Home extends Component {
     return(
       <div className="Home">
         <Search getReps={this.getReps} changeHandler={this.changeHandler}></Search>
+        <Spinner />
         <Result results={results}></Result>
       </div>
     );
@@ -36,17 +39,18 @@ class Home extends Component {
     let url = process.env.REACT_APP_REP_ENDPOINT;
     let request = url + this.state.zipcode;
 
-    fetch(request, { headers: { 'Content-Type': 'application/json' } })
+    trackPromise(
+      fetch(request, { headers: { 'Content-Type': 'application/json' } })
       .then(response => {
         return response.clone().json();
       })
       .then(results => {
-        console.log(results); // Temp
         this.setState({ results: results });
       })
       .catch(error => {
         console.log(error);
-      });
+      })
+    );
   }
 }
 
