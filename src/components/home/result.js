@@ -1,37 +1,35 @@
 import React from 'react';
-import { Container, Row, Table } from 'react-bootstrap';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 const Result = ({results}) => {
-  return results.map(r => {
-    return(
-      <div className="Results" key={r.candidate_pcc_id}>
-        <Container>
-          <Row>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Candidate Name</th>
-                  <th>NRA Contribution Recieved</th>
-                  <th>Party</th>
-                  <th>State</th>
-                  <th>ZIP Code</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{r.candidate_name}</td>
-                  <td>${r.nra_contribution_received}</td>
-                  <td>{r.party}</td>
-                  <td>{r.state}</td>
-                  <td>{r.zip_code}</td>
-                </tr>
-              </tbody>
-            </Table>
-          </Row>
-        </Container>
-      </div>
-    );
-  });
+  const columns = [
+    {
+      Header: 'Candidate Name',
+      accessor: 'candidate_name'
+    },
+    {
+      Header: 'NRA Contribution Recieved',
+      accessor: 'nra_contribution_received',
+      Cell: props => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'USD' }).format(props.value)
+    },
+    {
+      Header: 'Party',
+      accessor: 'party'
+    },
+    {
+      Header: 'State',
+      accessor: 'state'
+    },
+    {
+      Header: 'ZIP Code',
+      accessor: 'zip_code'
+    }
+  ];
+
+  return(
+    <ReactTable data={results} columns={columns} />
+  );
 }
 
 export default Result;
