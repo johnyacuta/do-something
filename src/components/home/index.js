@@ -45,7 +45,6 @@ class Home extends Component {
         return response.clone().json();
       })
       .then(results => {
-        console.log(results); // Temp
         this.setState({ results: results });
       })
       .catch(error => {
