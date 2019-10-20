@@ -39,10 +39,15 @@ class Home extends Component {
     let url = process.env.REACT_APP_REP_ENDPOINT;
     let request = url + this.state.zipcode;
 
+    // Track promise to use the loading spinner
     trackPromise(
+      // Fetch request to the API
       fetch(request, { headers: { 'Content-Type': 'application/json' } })
       .then(response => {
-        return response.clone().json();
+        // Error handling if request error
+        if (response.ok) {
+          return response.clone().json();
+        }
       })
       .then(results => {
         this.setState({ results: results });
