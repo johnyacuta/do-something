@@ -1,5 +1,6 @@
 import React from 'react';
 import { Jumbotron, Form } from 'react-bootstrap';
+import './search.css';
 
 const Search = (props) => {
   const {
